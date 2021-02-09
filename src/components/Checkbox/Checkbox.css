@@ -1,0 +1,12 @@
+.checkbox-container {
+    width: 80%;
+    margin: 20px auto;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    position: relative;
+}
+
+.checkbox-alignment {
+    margin-left: 20px;
+}

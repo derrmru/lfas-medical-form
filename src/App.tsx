@@ -1,24 +1,39 @@
-import React from 'react';
-import logo from './logo.svg';
+import { useState } from 'react'
+import Loading from './components/Loading/Loading'
+import Medical from './components/Medical/Medical'
+import Submission from './components/Submission/Submission'
+import Completion from './components/Completion/Completion'
 import './App.css';
 
-function App() {
+const App: React.FC = () => {
+  const [stage, setStage] = useState<string>('medical');
+  const [loading, setLoading] = useState<boolean>(false);
+  const [fields, setFields] = useState<{[index: string]: string}>({});
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <h1>London Foot & Ankle Surgery</h1>
+      <h2>Medical Form</h2>
+      <div className="medical-container">
+      {
+        loading ?
+          <Loading /> :
+            stage === 'medical' ?
+              <Medical 
+                setStage={(stage: string) => setStage(stage)}
+                setFields={(fields) => setFields(fields)}
+                fields={fields}
+                /> :
+                stage === 'submission' ?
+                  <Submission 
+                    setStage={(stage: string) => setStage(stage)}
+                    setFields={(fields) => setFields(fields)}
+                    fields={fields}
+                    setLoading={(value: boolean) => setLoading(value)}
+                    /> :
+                    <Completion /> 
+      }
+      </div>
     </div>
   );
 }
